@@ -21,7 +21,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-           $Posts = Post::all();
+           $Posts = Post::latest()->get();
         return view('posts.posts',compact('Posts'));
     }
 
@@ -48,7 +48,15 @@ class PostsController extends Controller
         'title' => 'required|unique:posts|max:255',
         'body' => 'required',
         ]);
-        Post::create(request(['title','body']));
+         $user = $request->user()->id;
+
+        $post = new Post();
+
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->user_id = $user;
+
+        $post->save();
 
         return redirect('/posts');
     }
@@ -61,7 +69,9 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show',compact('post'));
+        $comments = $post->comments;
+        // dd($comments);
+        return view('posts.show',compact('post','comments'));
     }
     
     /**
@@ -84,7 +94,7 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        return view('posts.update',compact('post'));
     }
     /**
      * Remove the specified resource from storage.

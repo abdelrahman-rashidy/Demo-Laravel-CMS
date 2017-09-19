@@ -17,11 +17,13 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('body');
+            $table->integer('user_id');
             // $table-> boolean('puplish')->default(false);
             $table->timestamps();
         });
     }
 
+   
     /**
      * Reverse the migrations.
      *

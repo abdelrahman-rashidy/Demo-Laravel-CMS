@@ -31,9 +31,12 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
+                    <a class="navbar-text   " href="{{ url('/Dashboard') }}">
+                        {{ config('page.name', 'dashboard') }}
+                    </a>
                     <a class="navbar-text   " href="{{ url('/posts') }}">
                         {{ config('page.name', 'posts') }}
-                    </a>
+                    </a> 
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">

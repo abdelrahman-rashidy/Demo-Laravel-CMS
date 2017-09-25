@@ -14,8 +14,8 @@
                         </div>
                     @endif
 
-                    <button type="submit" class="btn btn-outline-danger"><a class="" href="{{ url('/posts') }}"> Posts</a></button>
-                    <button type="submit" class="btn btn-outline-danger"><a class="" href="{{ url('/post/create') }}"> Create Post</a></button>
+                    <button type="submit" class="btn btn-outline-danger"><a class="" href=" {{ route('PostIndex')  }}"> Posts</a></button>
+                    <button type="submit" class="btn btn-outline-danger"><a class="" href="{{ route('CreatePage') }}"> Create Post</a></button>
                 </div>
             </div>
         </div>

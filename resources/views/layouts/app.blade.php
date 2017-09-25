@@ -31,10 +31,12 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
-                    <a class="navbar-text   " href="{{ url('/Dashboard') }}">
+                    @if (auth::check())
+                    <a class="navbar-text   " href="{{ route('home') }}">
                         {{ config('page.name', 'dashboard') }}
                     </a>
-                    <a class="navbar-text   " href="{{ url('/posts') }}">
+                    @endif
+                    <a class="navbar-text   " href="{{ route('PostIndex') }}">
                         {{ config('page.name', 'posts') }}
                     </a> 
                 </div>
@@ -64,7 +66,6 @@
                                                      document.getElementById('logout-form').submit();">
                                             Logout
                                         </a>
-
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
@@ -80,7 +81,6 @@
         @yield('content')
     </div>
 
-    <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

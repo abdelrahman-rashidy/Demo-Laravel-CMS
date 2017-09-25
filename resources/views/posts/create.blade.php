@@ -1,5 +1,4 @@
 @extends('/layouts.app')
-
 @section('content')
 <div class="container">
     <div class="row">
@@ -8,8 +7,9 @@
                 <div class="panel-heading">Posts</div>
 
                 <div class="panel-body">
-                   <form action="/post/store" method="POST">
-       {{--         for image
+                   <form action=" {{ route('StorePosts') }}" method="POST">
+     
+     {{--         for image
             <div class="form-group">
                 <label for="imageInput">File input</label>
                 <input data-preview="#preview" name="input_img" type="file" id="imageInput">

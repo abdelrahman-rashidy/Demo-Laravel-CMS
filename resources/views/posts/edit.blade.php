@@ -8,15 +8,18 @@
                 <div class="panel-heading">Posts</div>
 
                 <div class="panel-body">
-                   <form action="/post/update" method="POST">
-            
-                       {{ csrf_field() }}
+                   <form action=" {{ route('UpdatePost') }} " method="POST">
+
+                      {{ method_field('patch') }}
+                      {{ csrf_field() }}
                        <h3>title</h3>
-                       <input class="form-control" type="text" name="title" required>
+                       <input class="form-control" type="text" name="title" value="{{$post->title}}" required>
                        <h3>body</h3>
-                       <textarea class="form-control" name="body" id="" cols="30" rows="10" required> </textarea>
+                       <textarea class="form-control" name="body" id="" cols="30" rows="10" required> {{$post->body}}</textarea>
                        <br>
                     <button type="submit" class="btn btn-primary">publish</button>
+                    
+                    <input type="hidden" name="post_id" value="{{ $post->id }}"> 
                    </form>
                 </div>
             </div>

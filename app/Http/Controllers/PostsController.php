@@ -4,43 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use auth;
 
 class PostsController extends Controller
 {
-    public function shows()
+    public function __construct()
     {
-     
+        // $this->middleware('auth')->;
     }
 
 
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
            $Posts = Post::latest()->get();
         return view('posts.posts',compact('Posts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
+        
         return view('posts.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
          $this->validate($request,
@@ -61,12 +46,7 @@ class PostsController extends Controller
         return redirect('/posts');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\post  $post
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Post $post)
     {
         $comments = $post->comments;
@@ -74,34 +54,45 @@ class PostsController extends Controller
         return view('posts.show',compact('post','comments'));
     }
     
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\post  $post
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit',compact('post'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\post  $post
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Post $post)
     {
-        return view('posts.update',compact('post'));
+        // $post = Post::findOrFail($id);
+
+    $this->validate($request, [
+        'title' => 'required',
+        'body' => 'required'
+    ]);
+     
+
+
+    $input = $request->all();
+    $input["user_id"] = Auth::id();
+    $post = Post::find($input["post_id"]);
+    $post->title= $input["title"] ;
+    $post->body = $input["body"];
+
+    $post->save();
+
+   // $PostEdit = ['body' => $input["body"] , 'title' => $input["title"] ,'user_id'=> auth::id()];
+    //$updatePost = Post::find($post->id)->update($PostEdit);
+    // $updateOrder = Post::where()update($post->id, $input);
+    // $post->update($input,$post);
+
+
+    // Session::flash('flash_message', 'post successfully editted!');
+
+    return redirect('/posts');
+
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\post  $post
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function destroy(post $post)
     {
         //
